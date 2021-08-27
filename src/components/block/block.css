@@ -1,0 +1,10 @@
+.block{
+    position: absolute;
+}
+.blockRed{
+    background: red;
+}
+
+.blockBlue{
+    background: #61dafb;
+}
