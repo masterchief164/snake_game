@@ -1,24 +1,33 @@
-import React, {useState} from "react";
+import React from "react";
 import "./block.css"
+import bluePng from './bluePng.png'
+import redPng from './redPng.jpg'
 
-const Block = ({mar, marT, col, arr}) => {
-    const ele = useState(col);
-    let he=0,wi=0;
-    arr.push(ele);
+const Block = ({col}) => {
+    let he, wi;
     if (window.innerHeight < window.innerWidth) {
-        mar = (mar * 1.999999) + "vh"
-        marT = (marT * 1.999999) + "vh"
-        he= "2vh";
-        wi= "2vh";
+        he = "4vh";
+        wi = "4vh";
+    } else {
+        he = "4vw";
+        wi = "4vw";
     }
-    else{
-        mar = (mar * 1.999999) + "vw"
-        marT = (marT * 1.999999) + "vw"
-        he= "2vw";
-        wi= "2vw";
+    switch (col) {
+        case 0:
+            col = redPng
+            break;
+        case 1:
+            col = bluePng
+            break;
+        case 2:
+            col = redPng
+            break;
+        default:
+            break;
+
     }
-    col = col === 1 ? "#61dafb" : "red";
-    return <div className="block blockBlue" style={{marginLeft: mar, marginTop: marT, backgroundColor: col,height: he,width:wi}}/>
+    return <img alt='block' className="block blockBlue" src={col}
+                style={{backgroundColor: col, height: he, width: wi}}/>
 }
 
 export default Block
