@@ -36,16 +36,21 @@ const Grid = ({newScore}) => {
         let key = e.keyCode;
         switch (key) {
             case 37:
+                if (direction === 'right')
+                    break;
                 setDirection('left');
                 break;
             case 38:
-                setDirection('top');
+                if (direction !== 'bottom')
+                    setDirection('top');
                 break;
             case 39:
-                setDirection('right');
+                if (direction !== 'left')
+                    setDirection('right');
                 break;
             case 40:
-                setDirection('bottom');
+                if (direction !== 'top')
+                    setDirection('bottom');
                 break;
             default:
                 break;
@@ -93,7 +98,7 @@ const Grid = ({newScore}) => {
             newSnake.push(cell);
         })
         if (snake[0].x === food.x && snake[0].y === food.y) {
-            newScore((prev)=> prev+1);
+            newScore((prev) => prev + 1);
             let pos = randomPos()
             while (collision(pos)) {
                 pos = randomPos()

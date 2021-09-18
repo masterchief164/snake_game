@@ -1,11 +1,11 @@
 import React from "react";
 import "./block.css"
-import bluePng from './bluePng.png'
+import grass from '../../assets/grassSkin.jpg'
 import redPng from './redPng.jpg'
-import snakeSkin from '../../assets/snakeSkin.jpg'
+import snakeSkin from '../../assets/skin.jpg'
 
 const Block = ({col}) => {
-    let he, wi, rot,style = {};
+    let he, wi, rot,style;
     if (window.innerHeight < window.innerWidth) {
         he = "4vh";
         wi = "4vh";
@@ -34,7 +34,7 @@ const Block = ({col}) => {
             col = snakeSkin
             break;
         case 1:
-            col = bluePng
+            col = grass
             rot = 'rotate(0deg)'
             break;
         case 2:
