@@ -1,7 +1,5 @@
 .grid {
     text-align: center;
-    border: green 5px;
-    padding: 10vh 0;
 }
 li{
     height: min(4vh,4vw);

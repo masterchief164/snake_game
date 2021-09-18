@@ -2,12 +2,12 @@ import React, {useEffect, useRef, useState} from "react"
 import Block from "../block/block";
 import "./grid.css"
 
-const Grid = () => {
+const Grid = ({newScore}) => {
     let rows = 20, cols = 20, initial = [];
     for (let i = 0; i < rows; i++) {
         initial.push([]);
         for (let k = 0; k < cols; k++) {
-            initial[i].push(1)
+            initial[i].push({type: 1})
         }
     }
     const randomPos = () => {
@@ -18,7 +18,7 @@ const Grid = () => {
     }
 
     const [row, setRow] = useState(initial);
-    const [snake, setSnake] = useState([{x: 0, y: 0}, {x: 1, y: 0}]);
+    const [snake, setSnake] = useState([{x: 0, y: 0, dir: 'right'}, {x: 1, y: 0, dir: 'right'}]);
     const [direction, setDirection] = useState('right');
     const [food, setFood] = useState(randomPos);
 
@@ -56,9 +56,9 @@ const Grid = () => {
     const displaySnake = () => {
         const newRows = initial;
         snake.forEach(cell => {
-            newRows[cell.x][cell.y] = 0;
+            newRows[cell.x][cell.y] = {type: 0, dir: cell.dir};
         })
-        newRows[food.x][food.y] = 2;
+        newRows[food.x][food.y] = {type: 2};
         setRow(newRows);
     }
 
@@ -67,16 +67,16 @@ const Grid = () => {
         let pos;
         switch (direction) {
             case 'right':
-                pos = {x: snake[0].x, y: (snake[0].y + 1) % rows}
+                pos = {x: snake[0].x, y: (snake[0].y + 1) % rows, dir: "right"}
                 break;
             case 'left':
-                pos = {x: snake[0].x, y: (snake[0].y - 1 + rows) % rows}
+                pos = {x: snake[0].x, y: (snake[0].y - 1 + rows) % rows, dir: "left"}
                 break;
             case 'top':
-                pos = {x: (snake[0].x - 1 + cols) % cols, y: snake[0].y}
+                pos = {x: (snake[0].x - 1 + cols) % cols, y: snake[0].y, dir: "up"}
                 break;
             case 'bottom':
-                pos = {x: (snake[0].x + 1) % cols, y: snake[0].y}
+                pos = {x: (snake[0].x + 1) % cols, y: snake[0].y, dir: 'down'}
                 break;
             default:
                 break;
@@ -84,13 +84,16 @@ const Grid = () => {
         newSnake.push(pos)
         if (collision(pos)) {
             alert("Game over")
-            setSnake([{x: 0, y: 0}, {x: 1, y: 0}])
+            newScore(0);
+            setSnake([{x: 0, y: 0, dir: 'right'}, {x: 1, y: 0, dir: 'right'}])
+            setDirection('right')
             return
         }
         snake.forEach(cell => {
             newSnake.push(cell);
         })
         if (snake[0].x === food.x && snake[0].y === food.y) {
+            newScore((prev)=> prev+1);
             let pos = randomPos()
             while (collision(pos)) {
                 pos = randomPos()
