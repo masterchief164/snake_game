@@ -1,7 +1,7 @@
 import React from "react";
 import "./block.css"
 import grass from '../../assets/grassSkin.jpg'
-import redPng from './redPng.jpg'
+import apple from '../../assets/apple.jpg'
 import snakeSkin from '../../assets/skin.jpg'
 
 const Block = ({col}) => {
@@ -38,7 +38,7 @@ const Block = ({col}) => {
             rot = 'rotate(0deg)'
             break;
         case 2:
-            col = redPng
+            col = apple
             rot = 'rotate(0deg)'
             break;
         default:
